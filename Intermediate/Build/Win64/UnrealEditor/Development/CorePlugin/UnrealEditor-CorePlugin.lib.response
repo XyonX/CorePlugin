@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-CorePlugin.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Projects\ProjectCore\Intermediate\Build\Win64\CoreEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_0.h.obj"
+"C:\Projects\ProjectCore\Plugins\CorePlugin\Intermediate\Build\Win64\UnrealEditor\Development\CorePlugin\CorePlugin.cpp.obj"
+"C:\Projects\ProjectCore\Plugins\CorePlugin\Intermediate\Build\Win64\UnrealEditor\Development\CorePlugin\Default.rc2.res"
+/OUT:"C:\Projects\ProjectCore\Plugins\CorePlugin\Intermediate\Build\Win64\UnrealEditor\Development\CorePlugin\UnrealEditor-CorePlugin.lib"
