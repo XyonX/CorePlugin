@@ -3,15 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CorePlugin/Spawnables/Spawnable.h"
 #include "GameFramework/Actor.h"
 #include "DelegateHelper.generated.h"
 
 //DECLARE Delegates Here
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMouseMovementDelegate);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMouseMovementDelegate, FVector, CursorHitLocation);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDragStartedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDragDelegate_Down,USpawnable*,Spawnable);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FOnDragDelegate , FVector2D ,ScreenPostion);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDragDelegate_Up);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMouseMovementDelegate, FVector, CursorHitLocation);
 
 UCLASS()
 class COREPLUGIN_API ADelegateHelper : public AActor
@@ -25,9 +27,9 @@ public:
 
 	
 	
-	static FDragStartedDelegate DragDownDelegate;
+	static FOnDragDelegate_Down DragDelegate_Down;
 	static FOnDragDelegate	OnDragDelegate;
-	static FDragStartedDelegate	DragUpDelegate;
+	static FOnDragDelegate_Up	DragDelegate_Up;
 	static FOnMouseMovementDelegate OnMouseMovementDelegate ;
 
 };

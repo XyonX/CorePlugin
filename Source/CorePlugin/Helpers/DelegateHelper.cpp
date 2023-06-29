@@ -4,9 +4,10 @@
 #include "DelegateHelper.h"
 
 // Define the static variable ADelegateHelper::DragStartedDelegate
-FDragStartedDelegate ADelegateHelper::DragDownDelegate;
-FDragStartedDelegate ADelegateHelper::DragUpDelegate;
+FOnDragDelegate_Down ADelegateHelper::DragDelegate_Down;
 FOnDragDelegate ADelegateHelper::OnDragDelegate;
+FOnDragDelegate_Up ADelegateHelper::DragDelegate_Up;
+
 FOnMouseMovementDelegate ADelegateHelper::OnMouseMovementDelegate;
 
 void ADelegateHelper::BeginPlay()
