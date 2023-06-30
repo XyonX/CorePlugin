@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "SpawnableActor.h"
+#include "CorePlugin/Data/MeshData.h"
 #include "UObject/Object.h"
 #include "Spawnable.generated.h"
 
@@ -25,8 +26,7 @@ class COREPLUGIN_API USpawnable : public UObject
 	GENERATED_BODY()
 
 public:
-
-
+	
 	UFUNCTION()
 	UStaticMesh*GetMesh(){return  Mesh;};
 	UFUNCTION()
@@ -34,9 +34,9 @@ public:
 	
 	
 	UFUNCTION()
-	ASpawnableActor* GetClass()  {return ActorClass;};
+	ASpawnableActor* GetClass()  {return Instance;};
 	UFUNCTION()
-	void SetClass(ASpawnableActor*inClass){ActorClass=inClass;};
+	void SetClass(ASpawnableActor*inClass){Instance=inClass;};
 
 
 	UFUNCTION()
@@ -57,9 +57,12 @@ public:
 
 	int32 GetID(){return ID;};
 	void SetD (int32 inID) {ID=inID;};
+	ASpawnableActor*GetActor (){return Instance;};
+	
 
-	//Initialize the actor
-	bool Init (UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface,UTexture2D*inTextureIcon,ETilingType inTilingType,EMeshPivot inMeshPivotPosition,EMeshQuadrant inMeshQuadrantPosition);
+	/** The Init_PreBeginPlay is  the funtion cal be called before the world exist   */
+	bool Init (UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface, UTexture2D* inIcon, ETilingType inTilingType,EMeshPivot inMeshPivotPosition, EMeshQuadrant inMeshQuadrantPosition);
+	bool CreateInstance (UWorld*WorldContext);
 
 
 protected:
@@ -82,10 +85,9 @@ protected:
 
 	
 private:
-
-	//The Actual Class which will be spawned In the world
+	
 	UPROPERTY()
-	ASpawnableActor*ActorClass;
+	ASpawnableActor*Instance;
 
 	TSharedPtr<SBuildingCard>ActorCard;
 	

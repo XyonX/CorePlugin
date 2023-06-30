@@ -2,15 +2,16 @@
 
 
 #include "SpawnableActor.h"
+#include "Components/InstancedStaticMeshComponent.h"
 
 
 // Sets default values
 ASpawnableActor::ASpawnableActor()
 {
 
-	MeshComponent= CreateDefaultSubobject<UStaticMeshComponent>("MeshComponent");
-	SetRootComponent(MeshComponent);
-	RootComponent->SetMobility(EComponentMobility::Movable);
+	//MeshComponent= CreateDefaultSubobject<UStaticMeshComponent>("MeshComponent");
+	//SetRootComponent(MeshComponent);
+	//RootComponent->SetMobility(EComponentMobility::Movable);
 	
 }
 
@@ -22,17 +23,19 @@ void ASpawnableActor::BeginPlay()
 
 void ASpawnableActor::SetMaterial(UMaterialInterface* inMat)
 {
-	MeshComponent->SetMaterial(0,inMat);
+	InstancedMesh->SetMaterial(0,inMat);
 }
 
-void ASpawnableActor::Init(UStaticMesh*inMesh,UMaterialInterface*inMaterial)
+void ASpawnableActor::Init(UStaticMesh*inMesh,UMaterialInterface*inMaterial,int32 inSpawnableID)
 {
 	Mesh=inMesh;
 	Mat_interface=inMaterial;
-	
-	if(MeshComponent)
-	{
-		MeshComponent->SetStaticMesh(Mesh);
-		MeshComponent->SetMaterial(0,inMaterial);
-	}
+	SpawnableID=inSpawnableID;
+
+	InstancedMesh =  NewObject<UInstancedStaticMeshComponent>(this);
+	InstancedMesh->RegisterComponent();
+	InstancedMesh->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepWorldTransform);
+	InstancedMesh->SetStaticMesh(Mesh);
+	InstancedMesh->SetMaterial(0,Mat_interface);
+	InstancedMesh->SetVisibility(true);
 }

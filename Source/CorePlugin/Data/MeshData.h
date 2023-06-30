@@ -31,6 +31,15 @@ enum class EMeshQuadrant : uint8
 	Fourth 		UMETA(DisplayName = "Mesh At Fourth Quadrant "),
 	
 };
+USTRUCT(BlueprintType)
+struct FInstanceData
+{
+	GENERATED_BODY()
+
+	int32 InstanceID;
+	FVector2D InstanceLocation ;
+	
+};
 
 USTRUCT(BlueprintType)
 struct FMeshProperty : public FTableRowBase

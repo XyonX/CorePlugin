@@ -21,7 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshActor")
-	UStaticMeshComponent*MeshComponent;
+	UInstancedStaticMeshComponent* InstancedMesh;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshActor")
 	UStaticMesh*Mesh;
@@ -30,13 +30,15 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshActor")
 	UMaterialInstanceDynamic*Mat_Dynamic;
 
+	
 public:
 	
+	int32 SpawnableID;
+	int32 InstanceID;
 	
 	void SetMesh(UStaticMesh*inMesh) {Mesh=inMesh;}
 	UStaticMesh* GetMesh () {return  Mesh;};
-
+	UInstancedStaticMeshComponent*GetInstanceMesh (){return InstancedMesh;};
 	void SetMaterial (UMaterialInterface*inMat);
-
-	void Init (UStaticMesh*inMesh,UMaterialInterface*inMaterial);
+	void Init (UStaticMesh*inMesh,UMaterialInterface*inMaterial,int32 inID );
 };
