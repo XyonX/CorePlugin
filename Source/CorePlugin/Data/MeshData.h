@@ -15,11 +15,13 @@ enum class ETilingType : uint8
 	
 	
 };
+
 UENUM(BlueprintType)
 enum class EMeshPivot : uint8
 {
-	Middle 	UMETA(DisplayName = "Middle Centered"),
 	Cornered 		UMETA(DisplayName = "Cornered Centered "),
+	Middle 	UMETA(DisplayName = "Middle Centered"),
+	
 	
 };
 UENUM(BlueprintType)
@@ -29,14 +31,31 @@ enum class EMeshQuadrant : uint8
 	Second 		UMETA(DisplayName = "Mesh At Second Quadrant "),
 	Third 		UMETA(DisplayName = "Mesh At Third Quadrant "),
 	Fourth 		UMETA(DisplayName = "Mesh At Fourth Quadrant "),
+	Alligned	UMETA(DisplayName = " Mesh Is Axis Aligned "),
 	
 };
+
+UENUM(BlueprintType)
+enum class EMeshAlignment : uint8
+{
+	NotAlligned UMETA(DisplayName = "Not Alligned "),
+	X_Centered	UMETA(DisplayName = "Alligned X Centered "),
+	Y_Centered	UMETA(DisplayName = "Alligned Y Centered "),
+	X_Top		UMETA(DisplayName = "Alligned X Top "),
+	X_Bottom		UMETA(DisplayName = "Alligned X Bottom "),
+	Y_Left		UMETA(DisplayName = "Alligned Y Left "),
+	Y_Right	UMETA(DisplayName = "Alligned with Y Right "),
+
+};
+
+
+
 USTRUCT(BlueprintType)
 struct FInstanceData
 {
 	GENERATED_BODY()
 
-	int32 InstanceID;
+	int32 InstanceIndex;
 	FVector2D InstanceLocation ;
 	
 };
@@ -49,12 +68,16 @@ struct FMeshProperty : public FTableRowBase
 	UStaticMesh* Mesh;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	UTexture2D*Icon;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	ETilingType TilingType;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	EMeshPivot MeshPivotPosition;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	EMeshQuadrant MeshQuadrantPosition;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
+	EMeshAlignment MeshAlignment;
+	
 	
 };
 

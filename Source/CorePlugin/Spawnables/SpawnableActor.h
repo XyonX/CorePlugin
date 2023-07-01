@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CorePlugin/Data/MeshData.h"
 #include "GameFramework/Actor.h"
 #include "Materials/MaterialInstance.h"
 #include "SpawnableActor.generated.h"
@@ -34,7 +35,8 @@ protected:
 public:
 	
 	int32 SpawnableID;
-	int32 InstanceID;
+
+	//TArray<FInstanceData>InstancesData;
 	
 	void SetMesh(UStaticMesh*inMesh) {Mesh=inMesh;}
 	UStaticMesh* GetMesh () {return  Mesh;};
