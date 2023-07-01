@@ -57,13 +57,21 @@ public:
 
 	int32 GetID(){return ID;};
 	void SetD (int32 inID) {ID=inID;};
+	FBox GetBounds (){return BoundingBox;};
 	ASpawnableActor*GetActor (){return Instance;};
+	FVector GetPivotOffset_Center (){return PivotOffset_Center;};
 	
 
-	/** The Init_PreBeginPlay is  the funtion cal be called before the world exist   */
-	bool Init (UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface, UTexture2D* inIcon, ETilingType inTilingType,EMeshPivot inMeshPivotPosition, EMeshQuadrant inMeshQuadrantPosition);
+	/** The Init_PreBeginPlay is  the function cal be called before the world exist   */
+	bool Init (UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface, UTexture2D* inIcon, ETilingType inTilingType,EMeshPivot inMeshPivotPosition, EMeshQuadrant inMeshQuadrantPosition,EMeshAlignment inMeshAlignment);
 	bool CreateInstance (UWorld*WorldContext);
-
+	float MeshLength_X;
+	float MeshLength_Y;
+	float MeshLength_Z;
+	ETilingType GetTilingType () {return TilingType;};
+	EMeshPivot GetMeshPivot (){return MeshPivotPosition;};
+	EMeshQuadrant GetMeshQuadrantPosition (){return MeshQuadrantPosition;};
+	EMeshAlignment GetMeshAlignment (){return MeshAlignment;};
 
 protected:
 
@@ -75,6 +83,11 @@ protected:
 	UTexture2D*Icon;
 	UPROPERTY()
 	int32 ID ;
+	UPROPERTY()
+	FBox BoundingBox;
+	FVector PivotOffset_Center;
+	FVector PivotOffset_FirstQuad;
+
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	ETilingType TilingType;
@@ -82,6 +95,11 @@ protected:
 	EMeshPivot MeshPivotPosition;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	EMeshQuadrant MeshQuadrantPosition;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
+	EMeshAlignment MeshAlignment;
+
+	//protected fucntions
+	FVector CalculatePivotOffset_Center ();
 
 	
 private:
