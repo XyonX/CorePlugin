@@ -10,10 +10,11 @@
 //DECLARE Delegates Here
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMouseMovementDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDragDelegate_Down,USpawnable*,Spawnable);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDragDelegate , FVector2D ,ScreenPostion , USpawnable*,Spawnable);
 DECLARE_DYNAMIC_DELEGATE_OneParam(FOnDragDelegate , FVector2D ,ScreenPostion);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDragDelegate_Up);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMouseMovementDelegate, FVector, CursorHitLocation);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMouseMovementDelegate, FVector, CursorHitLocation );
 
 UCLASS()
 class COREPLUGIN_API ADelegateHelper : public AActor
