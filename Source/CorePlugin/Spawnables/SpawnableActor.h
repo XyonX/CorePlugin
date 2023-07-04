@@ -8,6 +8,9 @@
 #include "Materials/MaterialInstance.h"
 #include "SpawnableActor.generated.h"
 
+
+class USpawnable;
+
 UCLASS()
 class COREPLUGIN_API ASpawnableActor : public AActor
 {
@@ -31,8 +34,12 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshActor")
 	UMaterialInstanceDynamic*Mat_Dynamic;
 
+	UPROPERTY()
+	 USpawnable*Spawnable;
 	
 public:
+	USpawnable* GetSpawnable (){return Spawnable;};
+	void SetSpawnable (USpawnable*inSpawnable){Spawnable=inSpawnable;};
 	
 	int32 SpawnableID;
 
