@@ -4,6 +4,13 @@
 #include "Engine/DataTable.h"
 #include "MeshData.generated.h"
 
+UENUM(BlueprintType)
+enum class ESpawnableType : uint8
+{
+	ManualGeneration		UMETA(DisplayName ="Manual Generation"),
+	ProcedruralGeneration	UMETA(DisplayName ="Procedural Generation"),
+	
+};
 
 UENUM(BlueprintType)
 enum class ETilingType : uint8
@@ -68,6 +75,18 @@ struct FMeshProperty : public FTableRowBase
 	UStaticMesh* Mesh;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	UTexture2D*Icon;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="TileMesh")
+	FGameplayTag MeshTag ;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="TileMesh")
+	FGameplayTagContainer SupportedMeshTags ;
+	
+	//if mesh if not Centered at 0,0,0 At local Coordinate   then the Offset  required to Centered
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
+	FVector CenterOffset;
+
+	//if mesh if not aligned  With forwardX  then the angel required to make it ForX
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
+	FRotator ForwardOffset;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	ETilingType TilingType;
@@ -77,7 +96,9 @@ struct FMeshProperty : public FTableRowBase
 	EMeshQuadrant MeshQuadrantPosition;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	EMeshAlignment MeshAlignment;
-	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
+	bool bSupportProceduralGeneration;
+
 	
 };
 

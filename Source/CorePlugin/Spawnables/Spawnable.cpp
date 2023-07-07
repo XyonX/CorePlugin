@@ -5,23 +5,26 @@
 
 #include "Kismet/GameplayStatics.h"
 
-bool USpawnable::Init(UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface, UTexture2D* inIcon, ETilingType inTilingType,
-                      EMeshPivot inMeshPivotPosition, EMeshQuadrant inMeshQuadrantPosition,EMeshAlignment inMeshAlignment)
+bool USpawnable::Init(FMeshProperty*MP)
 {
 	
-	Mesh=inMesh;
-	Mat_Interface=in_Mat_Interface;
-	Icon=inIcon;
-	TilingType=inTilingType;
-	MeshPivotPosition=inMeshPivotPosition;
-	MeshQuadrantPosition=inMeshQuadrantPosition;
-	MeshAlignment=inMeshAlignment;
+	Mesh=MP->Mesh;
+	Mat_Interface=MP->Mesh->GetMaterial(0);
+	Icon=MP->Icon;
+	TilingType=MP->TilingType;
+	MeshPivotPosition=MP->MeshPivotPosition;
+	MeshQuadrantPosition=MP->MeshQuadrantPosition;
+	MeshAlignment= MP->MeshAlignment;
 	
 	FRandomStream RandomStream;
 	RandomStream.GenerateNewSeed();
 	ID = RandomStream.RandRange(0, 999999);
 	BoundingBox= Mesh->GetBoundingBox();
+	bSupportProceduralGeneration=MP->bSupportProceduralGeneration;
 	FVector Extents = BoundingBox.GetExtent();
+
+	SpawnableTag=MP->MeshTag;
+	SupportedSpawnableTags=MP->SupportedMeshTags;
 
 	MeshLength_X=Extents.X*2;
 	MeshLength_Y=Extents.Y*2;
@@ -31,6 +34,100 @@ bool USpawnable::Init(UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface, U
 	return true;
 	
 }
+
+bool USpawnable::CalculateSupportedSpawnables( TMap<int32 ,USpawnable*> inProceduralSpawnables )
+{
+	if(TilingType ==ETilingType::UnSupported)
+	{
+		CompatibleMeshTag_Left.Reset();
+		CompatibleMeshTag_Right.Reset();
+		CompatibleMeshTag_Up.Reset();
+		CompatibleMeshTag_Down.Reset();
+
+		return false;
+			
+	}
+	
+	for (auto& pair : inProceduralSpawnables)
+	{
+		USpawnable*Target =pair.Value;
+		if(Target==this)
+		{
+			continue;
+		}
+
+		switch (TilingType)
+		{
+			
+		case ETilingType::UnSupported:
+			return false;
+			
+		case ETilingType::BothDirection :
+			
+				switch (Target->TilingType)
+				{
+				case ETilingType::UnSupported :
+					break;
+				case ETilingType::BothDirection :
+					CompatibleMeshTag_Left.AddTag(Target->SpawnableTag);
+					CompatibleMeshTag_Right.AddTag(Target->SpawnableTag);
+					CompatibleMeshTag_Up.AddTag(Target->SpawnableTag);
+					CompatibleMeshTag_Down.AddTag(Target->SpawnableTag);
+					break;
+				case ETilingType::Vertical :
+
+					CompatibleMeshTag_Up.AddTag(Target->SpawnableTag);
+					CompatibleMeshTag_Down.AddTag(Target->SpawnableTag);
+					break;
+				case ETilingType::Horizontal :
+					CompatibleMeshTag_Left.AddTag(Target->SpawnableTag);
+					CompatibleMeshTag_Right.AddTag(Target->SpawnableTag);
+					break;
+				}
+				break;
+		case ETilingType::Vertical :
+			
+				switch (Target->TilingType)
+				{
+			case ETilingType::UnSupported :
+				break;
+			case ETilingType::BothDirection :
+				CompatibleMeshTag_Up.AddTag(Target->SpawnableTag);
+				CompatibleMeshTag_Down.AddTag(Target->SpawnableTag);
+				break;
+			case ETilingType::Vertical :
+				CompatibleMeshTag_Up.AddTag(Target->SpawnableTag);
+				CompatibleMeshTag_Down.AddTag(Target->SpawnableTag);
+				break;
+			case ETilingType::Horizontal :
+				break;
+						
+				}
+				break;
+		case ETilingType::Horizontal :
+				switch (Target->TilingType)
+				{
+			case ETilingType::UnSupported :
+				break;
+			case ETilingType::BothDirection :
+				CompatibleMeshTag_Left.AddTag(Target->SpawnableTag);
+				CompatibleMeshTag_Right.AddTag(Target->SpawnableTag);
+				break;
+			case ETilingType::Vertical :
+				break;
+			case ETilingType::Horizontal :
+				CompatibleMeshTag_Left.AddTag(Target->SpawnableTag);
+				CompatibleMeshTag_Right.AddTag(Target->SpawnableTag);
+				break;
+				}
+				break;
+		}
+		
+	}
+	return true;
+}
+	
+
 
 bool USpawnable::CreateInstance (UWorld*WorldContext)
 {

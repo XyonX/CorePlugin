@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "SpawnableActor.h"
 #include "CorePlugin/Data/MeshData.h"
 #include "UObject/Object.h"
@@ -63,7 +64,8 @@ public:
 	
 
 	/** The Init_PreBeginPlay is  the function cal be called before the world exist   */
-	bool Init (UStaticMesh* inMesh,UMaterialInterface*in_Mat_Interface, UTexture2D* inIcon, ETilingType inTilingType,EMeshPivot inMeshPivotPosition, EMeshQuadrant inMeshQuadrantPosition,EMeshAlignment inMeshAlignment);
+	bool Init (FMeshProperty*MP );
+	bool CalculateSupportedSpawnables (TMap<int32 ,USpawnable*> inProceduralSpawnables);
 	bool CreateInstance (UWorld*WorldContext);
 	float MeshLength_X;
 	float MeshLength_Y;
@@ -72,6 +74,7 @@ public:
 	EMeshPivot GetMeshPivot (){return MeshPivotPosition;};
 	EMeshQuadrant GetMeshQuadrantPosition (){return MeshQuadrantPosition;};
 	EMeshAlignment GetMeshAlignment (){return MeshAlignment;};
+	bool IsAProceduralSpawnable () {return bSupportProceduralGeneration;};
 
 protected:
 
@@ -85,8 +88,18 @@ protected:
 	int32 ID ;
 	UPROPERTY()
 	FBox BoundingBox;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
+	bool bSupportProceduralGeneration;
 	FVector PivotOffset_Center;
 	FVector PivotOffset_FirstQuad;
+	FGameplayTag SpawnableTag ;
+	FGameplayTagContainer SupportedSpawnableTags;
+	
+	
+	FGameplayTagContainer CompatibleMeshTag_Left;
+	FGameplayTagContainer CompatibleMeshTag_Right;
+	FGameplayTagContainer CompatibleMeshTag_Up;
+	FGameplayTagContainer CompatibleMeshTag_Down;
 
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
@@ -98,7 +111,9 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	EMeshAlignment MeshAlignment;
 
-	//protected fucntions
+	bool bIsShapeIrregular ;
+
+	//protected functions
 	FVector CalculatePivotOffset_Center ();
 
 	
