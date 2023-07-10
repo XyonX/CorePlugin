@@ -8,10 +8,6 @@
 // Sets default values
 ASpawnableActor::ASpawnableActor()
 {
-
-	//MeshComponent= CreateDefaultSubobject<UStaticMeshComponent>("MeshComponent");
-	//SetRootComponent(MeshComponent);
-	//RootComponent->SetMobility(EComponentMobility::Movable);
 	
 }
 

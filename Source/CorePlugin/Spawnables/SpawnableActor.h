@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CorePlugin/Data/MeshData.h"
 #include "GameFramework/Actor.h"
+#include "CorePlugin/Data/MeshData.h"
 #include "Materials/MaterialInstance.h"
 #include "SpawnableActor.generated.h"
 

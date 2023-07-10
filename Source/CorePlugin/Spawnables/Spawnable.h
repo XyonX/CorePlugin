@@ -1,26 +1,20 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayTagContainer.h"
-#include "SpawnableActor.h"
 #include "CorePlugin/Data/MeshData.h"
 #include "UObject/Object.h"
+#include "GameplayTagContainer.h"
 #include "Spawnable.generated.h"
 
-/**
- * 
- */
-
-enum class EMeshPivot : uint8;
-enum class EMeshQuadrant : uint8;
-enum class ETilingType : uint8;
+class SBuildingCard;
+class ASpawnableActor;
 class SBuildingCard;
 
 //The Data Holding class for Spawnable items in the world
 //Should Be initialized Taking the Data Table
 // Currently planned to initialized in the game instance class
+
 UCLASS()
 class COREPLUGIN_API USpawnable : public UObject
 {
@@ -65,7 +59,7 @@ public:
 
 	/** The Init_PreBeginPlay is  the function cal be called before the world exist   */
 	bool Init (FMeshProperty*MP );
-	bool CalculateSupportedSpawnables (TMap<int32 ,USpawnable*> inProceduralSpawnables);
+	bool CalculateSupportedSpawnables (TMap<int32 ,USpawnable*>& inProceduralSpawnables);
 	bool CreateInstance (UWorld*WorldContext);
 	float MeshLength_X;
 	float MeshLength_Y;
@@ -75,6 +69,23 @@ public:
 	EMeshQuadrant GetMeshQuadrantPosition (){return MeshQuadrantPosition;};
 	EMeshAlignment GetMeshAlignment (){return MeshAlignment;};
 	bool IsAProceduralSpawnable () {return bSupportProceduralGeneration;};
+	bool AddInstance (FTransform SpawnTransform);
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawnable")
+	FGameplayTag SpawnableTag ;
+	FGameplayTagContainer SupportedSpawnableTags;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawnable")
+	FGameplayTagContainer CompatibleMeshTag_Left;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawnable")
+	FGameplayTagContainer CompatibleMeshTag_Right;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawnable")
+	FGameplayTagContainer CompatibleMeshTag_Up;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawnable")
+	FGameplayTagContainer CompatibleMeshTag_Down;
+
+
 
 protected:
 
@@ -92,15 +103,7 @@ protected:
 	bool bSupportProceduralGeneration;
 	FVector PivotOffset_Center;
 	FVector PivotOffset_FirstQuad;
-	FGameplayTag SpawnableTag ;
-	FGameplayTagContainer SupportedSpawnableTags;
 	
-	
-	FGameplayTagContainer CompatibleMeshTag_Left;
-	FGameplayTagContainer CompatibleMeshTag_Right;
-	FGameplayTagContainer CompatibleMeshTag_Up;
-	FGameplayTagContainer CompatibleMeshTag_Down;
-
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="MeshData")
 	ETilingType TilingType;

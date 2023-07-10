@@ -23,7 +23,7 @@ public class CorePlugin : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+				"Core"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -36,6 +36,7 @@ public class CorePlugin : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"GameplayTags"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

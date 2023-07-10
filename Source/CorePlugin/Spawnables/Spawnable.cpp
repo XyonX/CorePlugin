@@ -2,9 +2,12 @@
 
 
 #include "Spawnable.h"
-
+#include "SpawnableActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/InstancedStaticMeshComponent.h"
 
+
+	
 bool USpawnable::Init(FMeshProperty*MP)
 {
 	
@@ -35,7 +38,7 @@ bool USpawnable::Init(FMeshProperty*MP)
 	
 }
 
-bool USpawnable::CalculateSupportedSpawnables( TMap<int32 ,USpawnable*> inProceduralSpawnables )
+bool USpawnable::CalculateSupportedSpawnables( TMap<int32 ,USpawnable*>& inProceduralSpawnables )
 {
 	if(TilingType ==ETilingType::UnSupported)
 	{
@@ -138,6 +141,19 @@ bool USpawnable::CreateInstance (UWorld*WorldContext)
 	UGameplayStatics::FinishSpawningActor(Instance, FTransform(FRotator::ZeroRotator, SpawnLoc));
 	//Instance->SetActorHiddenInGame(true);
 	return true;
+}
+
+bool USpawnable::AddInstance(FTransform SpawnTransform)
+{
+	if(Instance)
+	{
+		if(Instance->GetInstanceMesh())
+		{
+			Instance->GetInstanceMesh()->AddInstance(SpawnTransform,true);
+		}
+		return true;
+	}
+	return false;
 }
 
 FVector USpawnable::CalculatePivotOffset_Center()
