@@ -15,6 +15,7 @@ DECLARE_DYNAMIC_DELEGATE_OneParam(FOnDragDelegate , FVector2D ,ScreenPostion);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDragDelegate_Up);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMouseMovementDelegate, FVector, CursorHitLocation );
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterMovementDelegate, FVector, CharacterLocation );
 
 UCLASS()
 class COREPLUGIN_API ADelegateHelper : public AActor
@@ -32,5 +33,6 @@ public:
 	static FOnDragDelegate	OnDragDelegate;
 	static FOnDragDelegate_Up	DragDelegate_Up;
 	static FOnMouseMovementDelegate OnMouseMovementDelegate ;
+	static FOnCharacterMovementDelegate OnCharacterMovementDelegate;
 
 };
