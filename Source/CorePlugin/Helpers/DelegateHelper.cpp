@@ -10,6 +10,7 @@ FOnDragDelegate_Up ADelegateHelper::DragDelegate_Up;
 
 FOnMouseMovementDelegate ADelegateHelper::OnMouseMovementDelegate;
 FOnCharacterMovementDelegate ADelegateHelper::OnCharacterMovementDelegate;
+FOnUpdateAnimationData ADelegateHelper::Delegate_UpdateAnimationDataDelegate;
 
 void ADelegateHelper::BeginPlay()
 {

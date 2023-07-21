@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CorePlugin/Spawnables/Spawnable.h"
 #include "GameFramework/Actor.h"
+#include "CorePlugin/Data/AnimationData.h"
 #include "DelegateHelper.generated.h"
 
 //DECLARE Delegates Here
@@ -16,6 +17,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDragDelegate_Up);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMouseMovementDelegate, FVector, CursorHitLocation );
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterMovementDelegate, FVector, CharacterLocation );
+
+
+//Animation Delegates
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData , FAnimationData , AnimationData);
 
 UCLASS()
 class COREPLUGIN_API ADelegateHelper : public AActor
@@ -34,5 +39,6 @@ public:
 	static FOnDragDelegate_Up	DragDelegate_Up;
 	static FOnMouseMovementDelegate OnMouseMovementDelegate ;
 	static FOnCharacterMovementDelegate OnCharacterMovementDelegate;
+	static FOnUpdateAnimationData Delegate_UpdateAnimationDataDelegate;
 
 };
