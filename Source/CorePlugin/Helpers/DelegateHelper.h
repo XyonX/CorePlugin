@@ -22,6 +22,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterMovementDelegate, FVecto
 //Animation Delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData , FAnimationData , AnimationData);
 
+
+//UI Delegates
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnButtonClicked);
+
 UCLASS()
 class COREPLUGIN_API ADelegateHelper : public AActor
 {
@@ -40,5 +44,9 @@ public:
 	static FOnMouseMovementDelegate OnMouseMovementDelegate ;
 	static FOnCharacterMovementDelegate OnCharacterMovementDelegate;
 	static FOnUpdateAnimationData Delegate_UpdateAnimationDataDelegate;
+
+	// Game Manger
+
+	static FOnButtonClicked OnStartButtonClicked; 
 
 };

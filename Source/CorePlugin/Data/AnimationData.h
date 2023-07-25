@@ -1,7 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-//#include "AnimationData.Generated.h
+#include "AnimationData.Generated.h"
 
 USTRUCT(BlueprintType)
 struct FAnimationData
@@ -13,6 +13,5 @@ struct FAnimationData
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsJumping;
-
-	// Add more animation-related variables as needed
+	
 };
