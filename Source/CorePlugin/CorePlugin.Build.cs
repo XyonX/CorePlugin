@@ -36,7 +36,8 @@ public class CorePlugin : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"GameplayTags"
+				"InputCore",
+				"GameplayTags", "EnhancedInput"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
