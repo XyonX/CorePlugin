@@ -5,14 +5,22 @@
 #include "AnimationData.Generated.h"
 
 
+/** Store primitive data needed for animation calculation or other data derivation */
+
 USTRUCT(BlueprintType)
 struct FAnimationData
 {
 	GENERATED_BODY()
 
+	/** General Information */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Velocity ;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector MovementDirection ;
+
+	
+	/** bool Status */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsJumping;
 
@@ -21,41 +29,26 @@ struct FAnimationData
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
 	bool bIsInAir;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	FVector WorldLocation ;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	FRotator WorldRotation ;
-	
+
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
 	bool bHasWeaponEquipped;
 	
+
+	/** Location Status */
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	bool bIsAccelerating ;
+	FVector CharacterWorldLocation ;
+
+
+	/** Rotation Status */
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float MovementOffset;
-	
+	FRotator CharacterWorldRotation ;
+
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float MovementOffsetAccel ;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float Character_Yaw;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float Character_Yaw_LastFrame;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float Root_Yaw_Offset_PerFrame;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float Root_Yaw_Offset;
-	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	float PivotTime;
-	
-	float NormalTolerance ;
+    FRotator ControllerWorldRotation ;
+
+
+	/** Character State */
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
 	ELocomotionState LocomotionState ;
@@ -92,9 +85,9 @@ public:
 	ACorePlayerController*GetPlayerController ();
 	ACoreCharacter*GetPlayerCharacter ();*/
 /*	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	FVector WorldLocation ;
+	FVector CharacterWorldLocationLoc ;
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	FRotator WorldRotation ;
+	FRotator CharacterWorldRotationCharacterWorldRotation ;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
 	float Velocity ;

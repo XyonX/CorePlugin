@@ -25,10 +25,18 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterMovementDelegate, FVecto
 
 //Animation Delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData , FAnimationData , AnimationData);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData_float , float , value );
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData_int , int , value );
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData_bool , bool , value );
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData_FVector , FVector , value );
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdateAnimationData_FRotator , FRotator , value );
 
 
 //UI Delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnButtonClicked);
+
+//Begin play
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGlobalBeginPlayDelegate);
 
 UCLASS()
 class COREPLUGIN_API ADelegateHelper : public AActor
@@ -47,7 +55,23 @@ public:
 	static FOnDragDelegate_Up	DragDelegate_Up;
 	static FOnMouseMovementDelegate OnMouseMovementDelegate ;
 	static FOnCharacterMovementDelegate OnCharacterMovementDelegate;
-	static FOnUpdateAnimationData Delegate_UpdateAnimationDataDelegate;
+
+	
+	static FOnUpdateAnimationData Transmitter_AnimationData;
+	
+
+	static FOnUpdateAnimationData_FVector Transmitter_Velocity;
+	static FOnUpdateAnimationData_FVector Transmitter_CharacterWorldLocation;
+	static FOnUpdateAnimationData_FVector Transmitter_MovementDirection;
+	static FOnUpdateAnimationData_FRotator Transmitter_ControlRotation;
+	static FOnUpdateAnimationData_FRotator Transmitter_CharacterRotation;
+
+	static FOnUpdateAnimationData_bool Transmitter_JumpingStatus;
+	static FOnUpdateAnimationData_bool Transmitter_CrouchStatus;
+	static FOnUpdateAnimationData_bool Transmitter_InAirStatus;
+
+	static FGlobalBeginPlayDelegate Transmitter_GlobalBeginPlay;
+	
 
 	// Game Manger
 
