@@ -1,6 +1,5 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "PlayerData.h"
 #include "UObject/Object.h"
 #include "AnimationData.Generated.h"
 
@@ -8,18 +7,13 @@
 /** Store primitive data needed for animation calculation or other data derivation */
 
 USTRUCT(BlueprintType)
-struct FAnimationData
+struct FRawAnimationData
 {
 	GENERATED_BODY()
-
 	/** General Information */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Velocity ;
+	FVector Velocity ;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector MovementDirection ;
-
-	
 	/** bool Status */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsJumping;
@@ -32,31 +26,47 @@ struct FAnimationData
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
 	bool bHasWeaponEquipped;
-	
 
 	/** Location Status */
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	FVector CharacterWorldLocation ;
-
-
+	FVector CharacterLocation ;
+	
 	/** Rotation Status */
 	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	FRotator CharacterWorldRotation ;
+	FRotator CharacterRotation ;
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-    FRotator ControllerWorldRotation ;
-
+	FRotator ControllerRotation ;
 
 	/** Character State */
 	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	ELocomotionState LocomotionState ;
+	//UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
+	//ELocomotionState LocomotionState ;
+};
+
+USTRUCT(BlueprintType)
+struct FCalculatedAnimationData
+{
+	GENERATED_BODY()
+
+	/** General Information */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Velocity ;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator MovementRotation ;
 	
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	EVelocityDirection VelocityDirection ;
+	//UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
+	//EVelocityDirection VelocityDirection ;
 	
 };
+
+UCLASS()
+class COREPLUGIN_API UAnimationData : public UObject
+{
+	GENERATED_BODY()
+};
+
 
 	/*
 	//virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;

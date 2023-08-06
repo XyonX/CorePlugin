@@ -20,9 +20,8 @@ FOnButtonClicked ADelegateHelper::OnStartButtonClicked;
 
 FOnUpdateAnimationData ADelegateHelper::Transmitter_AnimationData;
 
-FOnUpdateAnimationData_FVector ADelegateHelper::Transmitter_Velocity;
 FOnUpdateAnimationData_FVector ADelegateHelper::Transmitter_CharacterWorldLocation;
-FOnUpdateAnimationData_FVector ADelegateHelper::Transmitter_MovementDirection;
+FOnUpdateAnimationData_FVector ADelegateHelper::Transmitter_Velocity;
 FOnUpdateAnimationData_FRotator ADelegateHelper::Transmitter_ControlRotation;
 FOnUpdateAnimationData_FRotator ADelegateHelper::Transmitter_CharacterRotation;
 
