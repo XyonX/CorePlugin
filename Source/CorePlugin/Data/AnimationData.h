@@ -3,6 +3,50 @@
 #include "UObject/Object.h"
 #include "AnimationData.Generated.h"
 
+UENUM(BlueprintType)
+enum class ECharacterEquipmentStatus: uint8
+{
+	
+	Unarmed = 0		UMETA(DisplayName = "Unamed"),
+	Armed =1		UMETA(DisplayName = "Armed"),
+	Melee = 2		UMETA(DisplayName = "Melee"),
+	Throwable = 0	UMETA(DisplayName = "Throwable"),
+};
+
+UENUM(BlueprintType)
+enum class EMovementDirection : uint8
+{
+	Forward = 0		UMETA(DisplayName = "Forward"),
+	Backward =1		UMETA(DisplayName = "Backward"),
+	Left = 2		UMETA(DisplayName = "Left"),
+	Right =3		UMETA(DisplayName = "Right")
+};
+
+
+UENUM(BlueprintType)
+enum class EMovementStatus : uint8
+{
+	Idle = 0		UMETA(DisplayName = "Idle"),
+	Walking =1		UMETA(DisplayName = "Walk"),
+	Jogging = 2		UMETA(DisplayName = "Jog"),
+	Sprinting = 3	UMETA(DisplayName = "SPrinting"),
+	Pivoting =4		UMETA(DisplayName = "Pivoting"),
+	Jumping =5		UMETA(DisplayName = "Jumping")
+};
+
+USTRUCT(BlueprintType)
+struct FMovementSpeed
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WalkSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float JogSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SprintSpeed;
+};
+
 
 /** Store primitive data needed for animation calculation or other data derivation */
 
@@ -38,11 +82,7 @@ struct FRawAnimationData
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
 	FRotator ControllerRotation ;
-
-	/** Character State */
 	
-	//UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	//ELocomotionState LocomotionState ;
 };
 
 USTRUCT(BlueprintType)
@@ -54,10 +94,16 @@ struct FCalculatedAnimationData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Velocity ;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FRotator MovementRotation ;
+	FRotator Delta_Movement_Controller ;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EMovementStatus MovementStatus;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EMovementDirection MovementDirection;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ECharacterEquipmentStatus CharacterEquipmentStatus;
+
+
 	
-	//UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="AnimInstance")
-	//EVelocityDirection VelocityDirection ;
 	
 };
 
