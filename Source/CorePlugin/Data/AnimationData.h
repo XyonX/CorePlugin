@@ -94,7 +94,11 @@ struct FCalculatedAnimationData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Velocity ;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FRotator Delta_Movement_Controller ;
+	FRotator VelocityRotation ;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator DeltaR_MovCtlr ;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator DeltaR_CharCtlr ;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EMovementStatus MovementStatus;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
