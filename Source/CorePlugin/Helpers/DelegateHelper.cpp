@@ -30,7 +30,12 @@ FOnUpdateAnimationData_bool ADelegateHelper::Transmitter_CrouchStatus;
 FOnUpdateAnimationData_bool ADelegateHelper::Transmitter_InAirStatus;
 
 FGlobalBeginPlayDelegate ADelegateHelper::Transmitter_GlobalBeginPlay;
+
+
 FNoParamDelegate ADelegateHelper::OnMovementStop;
+FNoParamDelegate ADelegateHelper::OnMovement;
+FNoParamDelegate ADelegateHelper::OnRotation;
+FNoParamDelegate ADelegateHelper::OnRotationStop;
 
 void ADelegateHelper::BeginPlay()
 {

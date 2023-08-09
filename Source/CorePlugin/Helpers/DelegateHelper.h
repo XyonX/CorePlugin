@@ -73,6 +73,9 @@ public:
 	static FGlobalBeginPlayDelegate Transmitter_GlobalBeginPlay;
 
 	static FNoParamDelegate OnMovementStop;
+	static FNoParamDelegate OnMovement;
+	static FNoParamDelegate OnRotationStop;
+	static FNoParamDelegate OnRotation;
 	
 
 	// Game Manger
